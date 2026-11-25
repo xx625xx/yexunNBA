@@ -173,6 +173,7 @@
       if (id === 'rank') loadRankings();
       if (id === 'games') loadGames();
       if (id === 'special') loadSpecial();
+      if (id === 'profit') loadProfit();
     }
 
     async function loadRankings() {
@@ -316,6 +317,80 @@
       if (!found) html += '<p>今日暂无此类对阵</p>';
       el.innerHTML = html;
     }
+    const BIN_ID = '6b068debac6210605aa2b252';
+const MASTER_KEY = '$2a$10$cA7/gCsDpmHLEqHlP7YkOeaVNw5TF8IiwqhW6Se0KD0tDFJ6y8Hnq';
+
+async function loadProfit() {
+  const el = document.getElementById('profit-content');
+  el.innerHTML = '<div class="loading">加载中...</div>';
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': MASTER_KEY }
+    });
+    const data = await res.json();
+    renderProfit(data.record);
+  } catch (e) {
+    el.innerHTML = '<p style="text-align:center;color:red;">加载失败</p>';
+  }
+}
+
+function renderProfit(data) {
+  const el = document.getElementById('profit-content');
+  if (!data || !data.games) {
+    el.innerHTML = '<p style="text-align:center;">暂无数据</p>';
+    return;
+  }
+  let html = `<p style="text-align:center;color:#666;margin-bottom:12px;">更新时间：${data.updateTime || '未知'}</p>`;
+  data.games.forEach(g => {
+    html += `
+      <div class="game-card">
+        <div style="font-weight:bold;margin-bottom:6px;">${g.match}</div>
+        <div>赔率：<strong>${g.odds}</strong></div>
+        <div style="color:#e53935;margin-top:4px;">${g.return}</div>
+      </div>`;
+  });
+  html += `<button class="back-btn" style="background:#1e3c72;color:white;margin-top:16px;" onclick="editProfit()">编辑内容（管理员）</button>`;
+  el.innerHTML = html;
+}
+
+async function editProfit() {
+  const el = document.getElementById('profit-content');
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': MASTER_KEY }
+    });
+    const data = await res.json();
+    const text = JSON.stringify(data.record, null, 2);
+    el.innerHTML = `
+      <p style="margin-bottom:8px;">直接编辑下面内容后保存：</p>
+      <textarea id="profit-editor" style="width:100%;height:280px;font-family:monospace;padding:10px;border-radius:8px;">${text}</textarea>
+      <button class="back-btn" style="background:#2e7d32;color:white;margin-top:10px;" onclick="saveProfit()">保存</button>
+      <button class="back-btn" style="margin-top:10px;" onclick="loadProfit()">取消</button>
+    `;
+  } catch (e) {
+    el.innerHTML = '<p style="color:red;">加载失败</p>';
+  }
+}
+
+async function saveProfit() {
+  const text = document.getElementById('profit-editor').value;
+  try {
+    const data = JSON.parse(text);
+    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': MASTER_KEY
+      },
+      body: JSON.stringify(data)
+    });
+    alert('保存成功');
+    loadProfit();
+  } catch (e) {
+    alert('保存失败，请检查格式是否正确');
+  }
+}
+
   </script>
 </body>
 </html>
