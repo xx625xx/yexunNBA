@@ -9,62 +9,51 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #f0f2f5;
-      color: #1a1a1a;
+      background: #f5f7fa;
+      color: #222;
       min-height: 100vh;
     }
     .header {
-      background: linear-gradient(135deg, #1d428a 0%, #c8102e 100%);
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #c94b4b 100%);
       color: white;
-      padding: 40px 20px 30px;
+      padding: 36px 20px 28px;
       text-align: center;
     }
     .header h1 { font-size: 24px; margin-bottom: 6px; }
-    .header p { font-size: 14px; opacity: 0.9; }
-    .main-menu { padding: 20px; }
+    .header p { font-size: 13px; opacity: 0.9; }
+    .menu { padding: 16px; }
     .level-card {
       background: white;
       border-radius: 16px;
-      padding: 18px;
+      padding: 18px 16px;
       margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      gap: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       cursor: pointer;
     }
     .icon-box {
-      width: 52px; height: 52px; border-radius: 12px;
+      width: 52px; height: 52px; border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       font-size: 26px; flex-shrink: 0;
     }
-    .icon-rank { background: #e3f2fd; }
-    .icon-game { background: #fff3e0; }
-    .icon-special { background: #fce4ec; }
-    .icon-profit { background: #e8f5e9; }
     .card-info h3 { font-size: 17px; margin-bottom: 4px; }
     .card-info p { font-size: 13px; color: #666; }
-    .content { padding: 16px; display: none; }
+    .content { display: none; padding: 16px; }
     .content.active { display: block; }
     .back-btn {
-      background: #1d428a; color: white; border: none;
-      padding: 10px 16px; border-radius: 8px; margin-bottom: 16px; cursor: pointer;
+      background: #eee; border: none; padding: 8px 14px;
+      border-radius: 20px; margin-bottom: 12px; cursor: pointer;
     }
-    .table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
-    .table th, .table td { padding: 10px 8px; text-align: left; font-size: 13px; border-bottom: 1px solid #eee; }
-    .table th { background: #f5f5f5; font-weight: 600; }
+    .table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
+    .table th, .table td { padding: 10px 8px; text-align: center; font-size: 13px; }
+    .table th { background: #f0f4ff; }
     .game-card {
       background: white; border-radius: 12px; padding: 14px; margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-    .game-teams { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; }
-    .team { text-align: center; flex: 1; }
-    .score { font-size: 22px; font-weight: bold; }
-    .status { font-size: 12px; color: #666; text-align: center; }
-    .special-badge { background: #ff5722; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; }
-    .admin-section { background: #fff9e6; padding: 12px; border-radius: 8px; margin-top: 12px; }
-    .admin-section input, .admin-section button { margin: 4px; padding: 8px; border-radius: 6px; border: 1px solid #ddd; }
-    .loading { text-align: center; padding: 40px; color: #666; }
+    .loading { text-align: center; padding: 40px; color: #888; }
   </style>
 </head>
 <body>
@@ -73,30 +62,30 @@
     <p>实时排名 · 今日比赛 · 特别关注 · 保底收益</p>
   </div>
 
-  <div id="menu" class="main-menu">
+  <div class="menu" id="menu">
     <div class="level-card" onclick="openSection('rank')">
-      <div class="icon-box icon-rank">📊</div>
+      <div class="icon-box" style="background:#e3f2fd;">📊</div>
       <div class="card-info">
         <h3>今日排名</h3>
         <p>东西部 + 总排名</p>
       </div>
     </div>
     <div class="level-card" onclick="openSection('games')">
-      <div class="icon-box icon-game">📅</div>
+      <div class="icon-box" style="background:#fff3e0;">📅</div>
       <div class="card-info">
         <h3>今日比赛</h3>
         <p>预告与比赛结果</p>
       </div>
     </div>
     <div class="level-card" onclick="openSection('special')">
-      <div class="icon-box icon-special">⭐</div>
+      <div class="icon-box" style="background:#fce4ec;">⭐</div>
       <div class="card-info">
         <h3>特别关注</h3>
         <p>前3名 vs 后3名赛事</p>
       </div>
     </div>
     <div class="level-card" onclick="openSection('profit')">
-      <div class="icon-box icon-profit">💰</div>
+      <div class="icon-box" style="background:#e8f5e9;">💰</div>
       <div class="card-info">
         <h3>保底收益</h3>
         <p>管理员发布赔率与收益</p>
@@ -104,38 +93,41 @@
     </div>
   </div>
 
-  <div id="rank" class="content">
-    <button class="back-btn" onclick="showMenu()">← 返回主界面</button>
-    <div id="rank-content"><div class="loading">加载排名中...</div></div>
+  <div class="content" id="rank">
+    <button class="back-btn" onclick="showMenu()">← 返回</button>
+    <div id="rank-content" class="loading">加载中...</div>
   </div>
 
-  <div id="games" class="content">
-    <button class="back-btn" onclick="showMenu()">← 返回主界面</button>
-    <div id="games-content"><div class="loading">加载比赛中...</div></div>
+  <div class="content" id="games">
+    <button class="back-btn" onclick="showMenu()">← 返回</button>
+    <div id="games-content" class="loading">加载中...</div>
   </div>
 
-  <div id="special" class="content">
-    <button class="back-btn" onclick="showMenu()">← 返回主界面</button>
-    <div id="special-content"><div class="loading">分析特别关注中...</div></div>
+  <div class="content" id="special">
+    <button class="back-btn" onclick="showMenu()">← 返回</button>
+    <div id="special-content" class="loading">加载中...</div>
   </div>
 
-  <div id="profit" class="content">
-    <button class="back-btn" onclick="showMenu()">← 返回主界面</button>
-    <div id="profit-content"></div>
+  <div class="content" id="profit">
+    <button class="back-btn" onclick="showMenu()">← 返回</button>
+    <div id="profit-content">
+      <p style="text-align:center;color:#888;padding:20px;">保底收益功能开发中</p>
+    </div>
   </div>
 
   <script>
-    const tg = window.Telegram?.WebApp;
+    const tg = window.Telegram.WebApp;
     if (tg) { tg.ready(); tg.expand(); }
 
     const teamCN = {
-  "BOS": "凯尔特人", "BKN": "篮网", "NYK": "尼克斯", "PHI": "76人", "TOR": "猛龙",
-  "CHI": "公牛", "CLE": "骑士", "DET": "活塞", "IND": "步行者", "MIL": "雄鹿",
-  "ATL": "老鹰", "CHA": "黄蜂", "MIA": "热火", "ORL": "魔术", "WAS": "奇才",
-  "DEN": "掘金", "MIN": "森林狼", "OKC": "雷霆", "POR": "开拓者", "UTA": "爵士",
-  "GSW": "勇士", "LAC": "快船", "LAL": "湖人", "PHX": "太阳", "SAC": "国王",
-  "DAL": "独行侠", "HOU": "火箭", "MEM": "灰熊", "NOP": "鹈鹕", "SAS": "马刺"
-};
+      "BOS": "凯尔特人", "BKN": "篮网", "NYK": "尼克斯", "PHI": "76人", "TOR": "猛龙",
+      "CHI": "公牛", "CLE": "骑士", "DET": "活塞", "IND": "步行者", "MIL": "雄鹿",
+      "ATL": "老鹰", "CHA": "黄蜂", "MIA": "热火", "ORL": "魔术", "WAS": "奇才",
+      "DEN": "掘金", "MIN": "森林狼", "OKC": "雷霆", "POR": "开拓者", "UTA": "爵士",
+      "GSW": "勇士", "LAC": "快船", "LAL": "湖人", "PHX": "太阳", "SAC": "国王",
+      "DAL": "独行侠", "HOU": "火箭", "MEM": "灰熊", "NOP": "鹈鹕", "SAS": "马刺"
+    };
+
     let standingsData = null;
     let gamesData = null;
 
@@ -151,26 +143,24 @@
       if (id === 'rank') loadRankings();
       if (id === 'games') loadGames();
       if (id === 'special') loadSpecial();
-      if (id === 'profit') loadProfit();
     }
 
     async function loadRankings() {
       const el = document.getElementById('rank-content');
-      el.innerHTML = '<div class="loading">加载排名中...</div>';
+      el.innerHTML = '<div class="loading">加载中...</div>';
       try {
         const res = await fetch('https://site.api.espn.com/apis/v2/sports/basketball/nba/standings');
-        const data = await res.json();
-        standingsData = data;
-        renderRankings(data);
+        standingsData = await res.json();
+        renderRankings(standingsData);
       } catch (e) {
-        el.innerHTML = '<p style="color:red;">加载失败，请稍后重试</p>';
+        el.innerHTML = '<p style="text-align:center;color:red;">加载失败，请稍后重试</p>';
       }
     }
 
     function renderRankings(data) {
       const el = document.getElementById('rank-content');
       if (!data.children) { el.innerHTML = '<p>暂无数据</p>'; return; }
-      
+
       let html = '<h3 style="margin:12px 0 8px;">东部排名</h3>';
       html += renderConfTable(data.children[0]);
       html += '<h3 style="margin:16px 0 8px;">西部排名</h3>';
@@ -180,83 +170,84 @@
       el.innerHTML = html;
     }
 
-   function renderConfTable(conf) {
-  if (!conf?.standings?.entries) return '<p>暂无</p>';
-  let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
-  conf.standings.entries.forEach((e, i) => {
-    const t = e.team;
-    const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
-    const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
-    const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-    const cnName = teamCN[t.abbreviation] || t.displayName;
-    html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
-  });
-  return html + '</table>';
-}
+    function renderConfTable(conf) {
+      if (!conf?.standings?.entries) return '<p>暂无</p>';
+      let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
+      conf.standings.entries.forEach((e, i) => {
+        const t = e.team;
+        const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
+        const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
+        const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
+        const cnName = teamCN[t.abbreviation] || t.displayName;
+        html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
+      });
+      return html + '</table>';
+    }
 
     function renderOverallTable(data) {
-  let all = [];
-  data.children.forEach(c => {
-    if (c.standings?.entries) all.push(...c.standings.entries);
-  });
-  all.sort((a, b) => {
-    const pa = a.stats.find(s => s.name === 'winPercent')?.value || 0;
-    const pb = b.stats.find(s => s.name === 'winPercent')?.value || 0;
-    return pb - pa;
-  });
-  let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
-  all.forEach((e, i) => {
-    const t = e.team;
-    const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
-    const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
-    const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-    const cnName = teamCN[t.abbreviation] || t.displayName;
-    html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
-  });
-  return html + '</table>';
-}
+      let all = [];
+      data.children.forEach(c => {
+        if (c.standings?.entries) all.push(...c.standings.entries);
+      });
+      all.sort((a, b) => {
+        const pa = a.stats.find(s => s.name === 'winPercent')?.value || 0;
+        const pb = b.stats.find(s => s.name === 'winPercent')?.value || 0;
+        return pb - pa;
+      });
+      let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
+      all.forEach((e, i) => {
+        const t = e.team;
+        const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
+        const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
+        const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
+        const cnName = teamCN[t.abbreviation] || t.displayName;
+        html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
+      });
+      return html + '</table>';
+    }
 
     async function loadGames() {
       const el = document.getElementById('games-content');
-      el.innerHTML = '<div class="loading">加载比赛中...</div>';
+      el.innerHTML = '<div class="loading">加载中...</div>';
       try {
         const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard');
-        const data = await res.json();
-        gamesData = data;
-        renderGames(data);
+        gamesData = await res.json();
+        renderGames(gamesData);
       } catch (e) {
-        el.innerHTML = '<p style="color:red;">加载失败，请稍后重试</p>';
+        el.innerHTML = '<p style="text-align:center;color:red;">加载失败</p>';
       }
     }
 
     function renderGames(data) {
       const el = document.getElementById('games-content');
       if (!data.events || data.events.length === 0) {
-        el.innerHTML = '<p>今天暂无比赛</p>';
+        el.innerHTML = '<p style="text-align:center;">今日暂无比赛</p>';
         return;
       }
       let html = '';
-      data.events.forEach(ev => {
-        const comp = ev.competitions[0];
-        const home = comp.competitors.find(c => c.homeAway === 'home');
-        const away = comp.competitors.find(c => c.homeAway === 'away');
-        const status = comp.status?.type?.shortDetail || '未知';
-        html += `<div class="game-card">
-          <div class="status">${status}</div>
-          <div class="game-teams">
-            <div class="team">${away.team.abbreviation}<br><span class="score">${away.score || '-'}</span></div>
-            <div style="font-size:18px;">VS</div>
-            <div class="team">${home.team.abbreviation}<br><span class="score">${home.score || '-'}</span></div>
-          </div>
-          <div style="font-size:12px;color:#888;text-align:center;">${ev.name}</div>
-        </div>`;
+      data.events.forEach(game => {
+        const home = game.competitions[0].competitors.find(c => c.homeAway === 'home');
+        const away = game.competitions[0].competitors.find(c => c.homeAway === 'away');
+        const status = game.status.type.shortDetail || game.status.type.description;
+        const homeName = teamCN[home.team.abbreviation] || home.team.abbreviation;
+        const awayName = teamCN[away.team.abbreviation] || away.team.abbreviation;
+        html += `
+          <div class="game-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div><strong>${awayName}</strong> vs <strong>${homeName}</strong></div>
+              <div style="color:#666;font-size:13px;">${status}</div>
+            </div>
+            <div style="margin-top:8px;font-size:18px;font-weight:bold;">
+              ${away.score || '-'} : ${home.score || '-'}
+            </div>
+          </div>`;
       });
       el.innerHTML = html;
     }
 
     async function loadSpecial() {
       const el = document.getElementById('special-content');
-      el.innerHTML = '<div class="loading">分析中...</div>';
+      el.innerHTML = '<div class="loading">加载中...</div>';
       if (!standingsData) await loadRankings();
       if (!gamesData) await loadGames();
       renderSpecial();
@@ -265,10 +256,9 @@
     function renderSpecial() {
       const el = document.getElementById('special-content');
       if (!standingsData || !gamesData) {
-        el.innerHTML = '<p>数据加载中，请稍后再试</p>';
+        el.innerHTML = '<p>数据加载失败</p>';
         return;
       }
-      // 简单示例：取总排名前3和后3
       let all = [];
       standingsData.children.forEach(c => {
         if (c.standings?.entries) all.push(...c.standings.entries);
@@ -280,77 +270,22 @@
       });
       const top3 = all.slice(0, 3).map(e => e.team.abbreviation);
       const bottom3 = all.slice(-3).map(e => e.team.abbreviation);
-      
-      let matches = [];
-      gamesData.events?.forEach(ev => {
-        const comp = ev.competitions[0];
-        const home = comp.competitors.find(c => c.homeAway === 'home')?.team.abbreviation;
-        const away = comp.competitors.find(c => c.homeAway === 'away')?.team.abbreviation;
+
+      let html = '<p style="margin-bottom:12px;color:#555;">前3名对后3名的比赛</p>';
+      let found = false;
+      gamesData.events.forEach(game => {
+        const home = game.competitions[0].competitors.find(c => c.homeAway === 'home').team.abbreviation;
+        const away = game.competitions[0].competitors.find(c => c.homeAway === 'away').team.abbreviation;
         if ((top3.includes(home) && bottom3.includes(away)) || (top3.includes(away) && bottom3.includes(home))) {
-          matches.push(ev);
+          found = true;
+          const homeName = teamCN[home] || home;
+          const awayName = teamCN[away] || away;
+          html += `<div class="game-card"><strong>${awayName}</strong> vs <strong>${homeName}</strong></div>`;
         }
       });
-
-      if (matches.length === 0) {
-        el.innerHTML = '<p>今日暂无前3名对阵后3名的比赛</p>';
-        return;
-      }
-      let html = '<h3 style="margin-bottom:12px;">特别关注赛事</h3>';
-      matches.forEach(ev => {
-        const comp = ev.competitions[0];
-        const home = comp.competitors.find(c => c.homeAway === 'home');
-        const away = comp.competitors.find(c => c.homeAway === 'away');
-        html += `<div class="game-card">
-          <span class="special-badge">前3 vs 后3</span>
-          <div class="game-teams" style="margin-top:8px;">
-            <div class="team">${away.team.abbreviation}</div>
-            <div>VS</div>
-            <div class="team">${home.team.abbreviation}</div>
-          </div>
-          <div class="status">${comp.status?.type?.shortDetail || ''}</div>
-        </div>`;
-      });
+      if (!found) html += '<p>今日暂无此类对阵</p>';
       el.innerHTML = html;
     }
-
-    function loadProfit() {
-      const el = document.getElementById('profit-content');
-      const saved = JSON.parse(localStorage.getItem('nba_profit') || '[]');
-      let html = '<h3>保底收益</h3><p style="font-size:13px;color:#666;margin:8px 0;">由管理员发布特别关注赛事的赔率和预计收益</p>';
-      if (saved.length === 0) {
-        html += '<p>暂无数据</p>';
-      } else {
-        saved.forEach(item => {
-          html += `<div class="game-card">
-            <strong>${item.game}</strong><br>
-            赔率：${item.odds}<br>
-            预计收益：${item.profit}
-          </div>`;
-        });
-      }
-      html += `<div class="admin-section">
-        <p style="font-size:13px;margin-bottom:8px;">管理员发布（本地保存，仅本设备可见）</p>
-        <input id="gameInput" placeholder="赛事名称" style="width:100%;">
-        <input id="oddsInput" placeholder="赔率" style="width:48%;">
-        <input id="profitInput" placeholder="预计收益" style="width:48%;">
-        <button onclick="addProfit()" style="width:100%;background:#1d428a;color:white;border:none;margin-top:8px;">添加</button>
-      </div>`;
-      el.innerHTML = html;
-    }
-
-    function addProfit() {
-      const game = document.getElementById('gameInput').value.trim();
-      const odds = document.getElementById('oddsInput').value.trim();
-      const profit = document.getElementById('profitInput').value.trim();
-      if (!game || !odds || !profit) return alert('请填写完整');
-      const saved = JSON.parse(localStorage.getItem('nba_profit') || '[]');
-      saved.push({ game, odds, profit });
-      localStorage.setItem('nba_profit', JSON.stringify(saved));
-      loadProfit();
-    }
-
-    // 启动
-    showMenu();
   </script>
 </body>
 </html>
