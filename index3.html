@@ -125,7 +125,7 @@
   "ATL": "老鹰", "CHA": "黄蜂", "MIA": "热火", "ORL": "魔术", "WAS": "奇才",
   "DEN": "掘金", "MIN": "森林狼", "OKC": "雷霆", "POR": "开拓者", "UTA": "爵士",
   "GSW": "勇士", "LAC": "快船", "LAL": "湖人", "PHX": "太阳", "SAC": "国王",
-  "DAL": "独行侠", "HOU": "火箭", "MEM": "灰熊", "NOP": "鹈鹕", "SAS": "马刺",
+  "DAL": "独行侠", "HOU": "火箭", "MEM": "灰熊", "NOP": "鹈鹕", "SAS": "马刺","WSH": "奇才",
   "Washington Wizards": "奇才",
   "New York Knicks": "尼克斯",
   "Utah Jazz": "爵士",
@@ -259,8 +259,8 @@
         const home = game.competitions[0].competitors.find(c => c.homeAway === 'home');
         const away = game.competitions[0].competitors.find(c => c.homeAway === 'away');
         const status = game.status.type.shortDetail || game.status.type.description;
-        const homeName = teamCN[home.team.abbreviation] || home.team.abbreviation;
-        const awayName = teamCN[away.team.abbreviation] || away.team.abbreviation;
+       const homeName = teamCN[home.team.abbreviation] || teamCN[home.team.displayName] || home.team.abbreviation;
+       const awayName = teamCN[away.team.abbreviation] || teamCN[away.team.displayName] || away.team.abbreviation;
         html += `
           <div class="game-card">
             <div style="display:flex;justify-content:space-between;align-items:center;">
