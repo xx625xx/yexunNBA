@@ -249,31 +249,31 @@
     }
 
     function renderGames(data) {
-      const el = document.getElementById('games-content');
-      if (!data.events || data.events.length === 0) {
-        el.innerHTML = '<p style="text-align:center;">今日暂无比赛</p>';
-        return;
-      }
-      let html = '';
-      data.events.forEach(game => {
-        const home = game.competitions[0].competitors.find(c => c.homeAway === 'home');
-        const away = game.competitions[0].competitors.find(c => c.homeAway === 'away');
-        const status = game.status.type.shortDetail || game.status.type.description;
-       const homeName = teamCN[home.team.abbreviation] || teamCN[home.team.displayName] || home.team.abbreviation;
-       const awayName = teamCN[away.team.abbreviation] || teamCN[away.team.displayName] || away.team.abbreviation;
-        html += `
-          <div class="game-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <div><strong>${awayName}</strong> vs <strong>${homeName}</strong></div>
-              <div style="color:#666;font-size:13px;">${status}</div>
-            </div>
-            <div style="margin-top:8px;font-size:18px;font-weight:bold;">
-              ${away.score || '-'} : ${home.score || '-'}
-            </div>
-          </div>`;
-      });
-      el.innerHTML = html;
-    }
+  const el = document.getElementById('games-content');
+  if (!data.events || data.events.length === 0) {
+    el.innerHTML = '<p style="text-align:center;">今日暂无比赛</p>';
+    return;
+  }
+  let html = '';
+  data.events.forEach(game => {
+    const home = game.competitions[0].competitors.find(c => c.homeAway === 'home');
+    const away = game.competitions[0].competitors.find(c => c.homeAway === 'away');
+    const status = game.status.type.shortDetail || game.status.type.description;
+    const homeName = teamCN[home.team.abbreviation] || teamCN[home.team.displayName] || home.team.abbreviation;
+    const awayName = teamCN[away.team.abbreviation] || teamCN[away.team.displayName] || away.team.abbreviation;
+    html += `
+      <div class="game-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><strong>${awayName}</strong> vs <strong>${homeName}</strong></div>
+          <div style="color:#666;font-size:13px;">${status}</div>
+        </div>
+        <div style="margin-top:8px;font-size:18px;font-weight:bold;">
+          ${away.score || '-'} : ${home.score || '-'}
+        </div>
+      </div>`;
+  });
+  el.innerHTML = html;
+}
 
     async function loadSpecial() {
       const el = document.getElementById('special-content');
