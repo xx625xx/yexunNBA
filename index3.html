@@ -120,13 +120,46 @@
     if (tg) { tg.ready(); tg.expand(); }
 
     const teamCN = {
-      "BOS": "凯尔特人", "BKN": "篮网", "NYK": "尼克斯", "PHI": "76人", "TOR": "猛龙",
-      "CHI": "公牛", "CLE": "骑士", "DET": "活塞", "IND": "步行者", "MIL": "雄鹿",
-      "ATL": "老鹰", "CHA": "黄蜂", "MIA": "热火", "ORL": "魔术", "WAS": "奇才",
-      "DEN": "掘金", "MIN": "森林狼", "OKC": "雷霆", "POR": "开拓者", "UTA": "爵士",
-      "GSW": "勇士", "LAC": "快船", "LAL": "湖人", "PHX": "太阳", "SAC": "国王",
-      "DAL": "独行侠", "HOU": "火箭", "MEM": "灰熊", "NOP": "鹈鹕", "SAS": "马刺"
-    };
+  "BOS": "凯尔特人", "BKN": "篮网", "NYK": "尼克斯", "PHI": "76人", "TOR": "猛龙",
+  "CHI": "公牛", "CLE": "骑士", "DET": "活塞", "IND": "步行者", "MIL": "雄鹿",
+  "ATL": "老鹰", "CHA": "黄蜂", "MIA": "热火", "ORL": "魔术", "WAS": "奇才",
+  "DEN": "掘金", "MIN": "森林狼", "OKC": "雷霆", "POR": "开拓者", "UTA": "爵士",
+  "GSW": "勇士", "LAC": "快船", "LAL": "湖人", "PHX": "太阳", "SAC": "国王",
+  "DAL": "独行侠", "HOU": "火箭", "MEM": "灰熊", "NOP": "鹈鹕", "SAS": "马刺",
+  // 补充全称匹配
+  "Washington Wizards": "奇才",
+  "New York Knicks": "尼克斯",
+  "Utah Jazz": "爵士",
+  "New Orleans Pelicans": "鹈鹕",
+  "Golden State Warriors": "勇士",
+  "San Antonio Spurs": "马刺",
+  "Boston Celtics": "凯尔特人",
+  "Brooklyn Nets": "篮网",
+  "Philadelphia 76ers": "76人",
+  "Toronto Raptors": "猛龙",
+  "Chicago Bulls": "公牛",
+  "Cleveland Cavaliers": "骑士",
+  "Detroit Pistons": "活塞",
+  "Indiana Pacers": "步行者",
+  "Milwaukee Bucks": "雄鹿",
+  "Atlanta Hawks": "老鹰",
+  "Charlotte Hornets": "黄蜂",
+  "Miami Heat": "热火",
+  "Orlando Magic": "魔术",
+  "Denver Nuggets": "掘金",
+  "Minnesota Timberwolves": "森林狼",
+  "Oklahoma City Thunder": "雷霆",
+  "Portland Trail Blazers": "开拓者",
+  "LA Clippers": "快船",
+  "Los Angeles Clippers": "快船",
+  "LA Lakers": "湖人",
+  "Los Angeles Lakers": "湖人",
+  "Phoenix Suns": "太阳",
+  "Sacramento Kings": "国王",
+  "Dallas Mavericks": "独行侠",
+  "Houston Rockets": "火箭",
+  "Memphis Grizzlies": "灰熊"
+};
 
     let standingsData = null;
     let gamesData = null;
@@ -178,7 +211,7 @@
         const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
         const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
         const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-        const cnName = teamCN[t.abbreviation] || t.displayName;
+       const cnName = teamCN[t.abbreviation] || teamCN[t.displayName] || t.displayName;
         html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
       });
       return html + '</table>';
@@ -200,7 +233,7 @@
         const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
         const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
         const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-        const cnName = teamCN[t.abbreviation] || t.displayName;
+       const cnName = teamCN[t.abbreviation] || teamCN[t.displayName] || t.displayName;
         html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
       });
       return html + '</table>';
