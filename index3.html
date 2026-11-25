@@ -180,39 +180,41 @@
       el.innerHTML = html;
     }
 
-    function renderConfTable(conf) {
-      if (!conf?.standings?.entries) return '<p>暂无</p>';
-      let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
-      conf.standings.entries.forEach((e, i) => {
-        const t = e.team;
-        const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
-        const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
-        const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-        const cnName = teamCN[t.abbreviation] || t.displayName;
-html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
-      return html + '</table>';
-    }
+   function renderConfTable(conf) {
+  if (!conf?.standings?.entries) return '<p>暂无</p>';
+  let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
+  conf.standings.entries.forEach((e, i) => {
+    const t = e.team;
+    const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
+    const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
+    const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
+    const cnName = teamCN[t.abbreviation] || t.displayName;
+    html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
+  });
+  return html + '</table>';
+}
 
     function renderOverallTable(data) {
-      let all = [];
-      data.children.forEach(c => {
-        if (c.standings?.entries) all.push(...c.standings.entries);
-      });
-      all.sort((a, b) => {
-        const pa = a.stats.find(s => s.name === 'winPercent')?.value || 0;
-        const pb = b.stats.find(s => s.name === 'winPercent')?.value || 0;
-        return pb - pa;
-      });
-      let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
-      all.forEach((e, i) => {
-        const t = e.team;
-        const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
-        const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
-        const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-       const cnName = teamCN[t.abbreviation] || t.displayName;
-html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
-      return html + '</table>';
-    }
+  let all = [];
+  data.children.forEach(c => {
+    if (c.standings?.entries) all.push(...c.standings.entries);
+  });
+  all.sort((a, b) => {
+    const pa = a.stats.find(s => s.name === 'winPercent')?.value || 0;
+    const pb = b.stats.find(s => s.name === 'winPercent')?.value || 0;
+    return pb - pa;
+  });
+  let html = '<table class="table"><tr><th>排名</th><th>球队</th><th>胜</th><th>负</th><th>胜率</th></tr>';
+  all.forEach((e, i) => {
+    const t = e.team;
+    const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
+    const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
+    const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
+    const cnName = teamCN[t.abbreviation] || t.displayName;
+    html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
+  });
+  return html + '</table>';
+}
 
     async function loadGames() {
       const el = document.getElementById('games-content');
