@@ -128,6 +128,14 @@
     const tg = window.Telegram?.WebApp;
     if (tg) { tg.ready(); tg.expand(); }
 
+    const teamCN = {
+  "BOS": "凯尔特人", "BKN": "篮网", "NYK": "尼克斯", "PHI": "76人", "TOR": "猛龙",
+  "CHI": "公牛", "CLE": "骑士", "DET": "活塞", "IND": "步行者", "MIL": "雄鹿",
+  "ATL": "老鹰", "CHA": "黄蜂", "MIA": "热火", "ORL": "魔术", "WAS": "奇才",
+  "DEN": "掘金", "MIN": "森林狼", "OKC": "雷霆", "POR": "开拓者", "UTA": "爵士",
+  "GSW": "勇士", "LAC": "快船", "LAL": "湖人", "PHX": "太阳", "SAC": "国王",
+  "DAL": "独行侠", "HOU": "火箭", "MEM": "灰熊", "NOP": "鹈鹕", "SAS": "马刺"
+};
     let standingsData = null;
     let gamesData = null;
 
@@ -180,8 +188,8 @@
         const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
         const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
         const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-        html += `<tr><td>${i+1}</td><td>${t.displayName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
-      });
+        const cnName = teamCN[t.abbreviation] || t.displayName;
+html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
       return html + '</table>';
     }
 
@@ -201,8 +209,8 @@
         const wins = e.stats.find(s => s.name === 'wins')?.value || 0;
         const losses = e.stats.find(s => s.name === 'losses')?.value || 0;
         const pct = e.stats.find(s => s.name === 'winPercent')?.value || 0;
-        html += `<tr><td>${i+1}</td><td>${t.displayName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
-      });
+       const cnName = teamCN[t.abbreviation] || t.displayName;
+html += `<tr><td>${i+1}</td><td>${cnName}</td><td>${wins}</td><td>${losses}</td><td>${(pct*100).toFixed(1)}%</td></tr>`;
       return html + '</table>';
     }
 
